@@ -6,11 +6,16 @@ const cors = require("cors");
 
 const app = express();
 
-// CORS setup — allow frontend to talk to backend
-app.use(cors({
-  origin: "http://localhost:5173", // React dev server URL
-  credentials: true,               // allow cookies
-}));
+// CORS setup — allow local dev + deployed frontend
+app.use(
+  cors({
+    origin: [
+      "http://localhost:5173", // local React dev
+      "https://regal-mermaid-eb66ab.netlify.app", // deployed frontend
+    ],
+    credentials: true, // allow cookies / auth headers
+  })
+);
 
 app.use(express.json());
 app.use(cookieParser());
