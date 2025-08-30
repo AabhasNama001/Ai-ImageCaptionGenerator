@@ -23,7 +23,7 @@ export default function UploadPost() {
       formData.append("image", file);
 
       const res = await axios.post(
-        "http://localhost:3000/api/posts",
+        "https://ai-imagecaptiongenerator.onrender.com/api/posts",
         formData,
         {
           withCredentials: true,
