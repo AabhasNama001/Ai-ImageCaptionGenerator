@@ -74,4 +74,12 @@ async function loginController(req, res) {
   });
 }
 
-module.exports = { registerController, loginController };
+async function meController(req, res) {
+  if (!req.user) {
+    return res.status(401).json({ message: "Not authenticated" });
+  }
+  res.json({ user: { id: req.user._id, username: req.user.username } });
+}
+
+module.exports = { registerController, loginController, meController };
+

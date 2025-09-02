@@ -2,13 +2,13 @@ import { Link } from "react-router-dom";
 
 export default function Home() {
   return (
-    <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-gray-900 p-4 text-white">
+    <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-gradient-to-br from-[#02022e] via-[#0a0a3f] to-black p-4 text-white">
       {/* Background animation elements */}
       <div className="absolute inset-0">
         {[...Array(50)].map((_, i) => (
           <div
             key={i}
-            className="absolute rounded-full bg-blue-400 opacity-20 animate-bg-dots"
+            className="absolute rounded-full bg-blue-200 opacity-20 animate-bg-dots"
             style={{
               top: `${Math.random() * 100}%`,
               left: `${Math.random() * 100}%`,
@@ -21,7 +21,7 @@ export default function Home() {
         ))}
       </div>
 
-      <style jsx>{`
+      <style>{`
         @keyframes bg-dots {
           0% {
             transform: translate(0, 0);
@@ -55,7 +55,7 @@ export default function Home() {
         }
       `}</style>
 
-      <div className="relative z-10 w-full max-w-lg overflow-hidden rounded-2xl bg-gray-800 bg-opacity-70 backdrop-blur-md shadow-2xl transition-transform duration-300 hover:scale-[1.01] border border-gray-700 p-10 text-center">
+      <div className="relative z-10 w-full max-w-lg overflow-hidden rounded-2xl bg-gradient-to-br from-black via-[#0a0a3f] to-[#02022e] bg-opacity-70 backdrop-blur-md shadow-2xl transition-transform duration-300 hover:scale-[1.01] border-[#bab2f4] border-2 p-10 text-center">
         <h1 className="mb-4 text-4xl font-extrabold text-white">
           Welcome to AI Image Caption Generator ✨
         </h1>

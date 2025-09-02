@@ -40,7 +40,7 @@ export default function CreatePost() {
   };
 
   return (
-    <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-gray-900 p-4 text-white">
+    <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-gradient-to-br from-[#02022e] via-[#0a0a3f] to-black p-4 text-white">
       {/* Background animation elements */}
       <div className="absolute inset-0">
         {[...Array(50)].map((_, i) => (
@@ -94,7 +94,7 @@ export default function CreatePost() {
       `}</style>
 
       {/* Card */}
-      <div className="relative z-10 w-full max-w-lg rounded-2xl bg-gray-800 bg-opacity-70 backdrop-blur-md p-8 shadow-2xl">
+      <div className="relative z-10 w-full max-w-lg rounded-2xl border-[#bab2f4] border-2 bg-gradient-to-br from-black via-[#0a0a3f] to-[#02022e] bg-opacity-70 backdrop-blur-md p-8 shadow-2xl">
         <h2 className="mb-6 text-center text-4xl font-extrabold text-white">
           Create Post ✨
         </h2>

@@ -5,25 +5,33 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import CreatePost from "./pages/CreatePost";
 import ProtectedRoute from "./components/ProtectedRoute";
+import api from "./api/axios";
 
 function App() {
   const [user, setUser] = useState(null);
   const [loadingUser, setLoadingUser] = useState(true);
 
   useEffect(() => {
-    // Simulate loading user from localStorage
-    const storedUser = localStorage.getItem("user");
-    if (storedUser) setUser(JSON.parse(storedUser));
-    setLoadingUser(false);
+    async function fetchUser() {
+      try {
+        const res = await api.get("/auth/me", { withCredentials: true });
+        setUser(res.data.user);
+      } catch (err) {
+        setUser(null);
+      } finally {
+        setLoadingUser(false);
+      }
+    }
+    fetchUser();
   }, []);
 
-  const handleLogout = () => {
-    localStorage.removeItem("user");
+  const handleLogout = async () => {
+    // optional: hit a logout endpoint to clear cookie
+    document.cookie = "token=; Max-Age=0"; // quick client clear
     setUser(null);
   };
 
   if (loadingUser) {
-    // You can show a spinner or blank screen while checking user
     return (
       <div className="flex items-center justify-center min-h-screen bg-gray-900 text-white">
         Loading...
@@ -41,9 +49,9 @@ function App() {
           {user ? (
             <>
               <span>Hi, {user.username}</span>
-              <Link to="/create" className="hover:underline">
+              {/* <Link to="/create" className="hover:underline">
                 Create Post
-              </Link>
+              </Link> */}
               <button
                 onClick={handleLogout}
                 className="bg-red-600 px-3 py-1 rounded hover:bg-red-700"
