@@ -16,11 +16,8 @@ export default function Login({ setUser }) {
 
     try {
       const res = await api.post("/auth/login", { username, password });
-
-      // Save user info (not token — cookie is automatically set)
       setUser({ username: res.data.user.username, id: res.data.user.id });
-
-      navigate("/"); // redirect after login
+      navigate("/");
     } catch (err) {
       setError(err.response?.data?.message || "An unexpected error occurred.");
     } finally {
@@ -29,8 +26,14 @@ export default function Login({ setUser }) {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-50 p-4">
-      <div className="w-full max-w-md rounded-xl bg-white p-8 shadow-2xl">
+    <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-gradient-to-br from-[#02022e] via-[#0a0a3f] to-black p-4">
+      {/* floating animated blobs */}
+      <div className="absolute -top-10 -left-10 h-40 w-40 rounded-full bg-blue-400 opacity-40 animate-float"></div>
+      <div className="absolute bottom-20 -right-10 h-32 w-32 rounded-full bg-indigo-400 opacity-40 animate-float delay-2000"></div>
+      <div className="absolute top-1/3 left-1/2 h-24 w-24 rounded-full bg-purple-400 opacity-40 animate-float delay-1000"></div>
+
+      {/* card */}
+      <div className="relative z-10 w-full max-w-md rounded-xl bg-white p-8 shadow-2xl backdrop-blur-md">
         <h2 className="mb-6 text-center text-3xl font-bold text-gray-800">
           Welcome Back! 👋
         </h2>
@@ -83,6 +86,19 @@ export default function Login({ setUser }) {
           </div>
         )}
       </div>
+
+      {/* custom animation keyframes */}
+      <style>{`
+        @keyframes float {
+          0%, 100% { transform: translateY(0px) translateX(0px); }
+          50% { transform: translateY(-20px) translateX(10px); }
+        }
+        .animate-float {
+          animation: float 6s ease-in-out infinite;
+        }
+        .delay-1000 { animation-delay: 1s; }
+        .delay-2000 { animation-delay: 2s; }
+      `}</style>
     </div>
   );
 }

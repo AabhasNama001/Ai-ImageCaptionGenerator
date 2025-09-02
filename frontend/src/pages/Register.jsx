@@ -1,7 +1,6 @@
 import { useState } from "react";
 import api from "../api/axios";
-import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom"; // Import Link for a smooth internal navigation
+import { useNavigate, Link } from "react-router-dom";
 
 export default function Register() {
   const [username, setUsername] = useState("");
@@ -14,13 +13,15 @@ export default function Register() {
   const handleRegister = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setError(""); // Clear previous errors
-    setSuccess(""); // Clear previous success messages
+    setError("");
+    setSuccess("");
 
     try {
       const res = await api.post("/auth/register", { username, password });
-      setSuccess(res.data.message || "Registration successful! Redirecting to login...");
-      setTimeout(() => navigate("/login"), 1500); // Wait a bit longer to show the success message
+      setSuccess(
+        res.data.message || "Registration successful! Redirecting to login..."
+      );
+      setTimeout(() => navigate("/login"), 1500);
     } catch (err) {
       const errorMessage =
         err.response?.data?.message || "An unexpected error occurred.";
@@ -31,8 +32,14 @@ export default function Register() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-50 p-4">
-      <div className="w-full max-w-md overflow-hidden rounded-xl bg-white p-8 shadow-2xl transition-transform duration-300 hover:scale-[1.01]">
+    <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-gradient-to-br from-[#02022e] via-[#0a0a3f] to-black p-4">
+      {/* floating animated blobs */}
+      <div className="absolute -top-10 -left-10 h-40 w-40 rounded-full bg-blue-400 opacity-40 animate-float"></div>
+      <div className="absolute bottom-20 -right-10 h-32 w-32 rounded-full bg-indigo-400 opacity-40 animate-float delay-2000"></div>
+      <div className="absolute top-1/3 left-1/2 h-24 w-24 rounded-full bg-purple-400 opacity-40 animate-float delay-1000"></div>
+
+      {/* card */}
+      <div className="relative z-10 w-full max-w-md overflow-hidden rounded-xl bg-white p-8 shadow-2xl backdrop-blur-md transition-transform duration-300 hover:scale-[1.01]">
         <h2 className="mb-2 text-center text-3xl font-bold text-gray-800">
           Create an account 🚀
         </h2>
@@ -128,11 +135,27 @@ export default function Register() {
 
         <div className="mt-6 text-center text-sm text-gray-500">
           Already have an account?{" "}
-          <Link to="/login" className="font-semibold text-blue-600 hover:underline">
+          <Link
+            to="/login"
+            className="font-semibold text-blue-600 hover:underline"
+          >
             Login here
           </Link>
         </div>
       </div>
+
+      {/* custom animation keyframes */}
+      <style>{`
+        @keyframes float {
+          0%, 100% { transform: translateY(0px) translateX(0px); }
+          50% { transform: translateY(-20px) translateX(10px); }
+        }
+        .animate-float {
+          animation: float 6s ease-in-out infinite;
+        }
+        .delay-1000 { animation-delay: 1s; }
+        .delay-2000 { animation-delay: 2s; }
+      `}</style>
     </div>
   );
 }
