@@ -11,7 +11,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:5173", // local React dev
-      "https://regal-mermaid-eb66ab.netlify.app", // deployed frontend
+      "https://ai-image-caption-generator.netlify.app", // deployed frontend
     ],
     credentials: true, // allow cookies / auth headers
   })
