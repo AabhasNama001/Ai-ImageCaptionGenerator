@@ -11,6 +11,7 @@ function App() {
   const [user, setUser] = useState(null);
   const [loadingUser, setLoadingUser] = useState(true);
 
+  // Check user on page load
   useEffect(() => {
     async function fetchUser() {
       try {
@@ -25,10 +26,14 @@ function App() {
     fetchUser();
   }, []);
 
+  // Logout function
   const handleLogout = async () => {
-    // optional: hit a logout endpoint to clear cookie
-    document.cookie = "token=; Max-Age=0"; // quick client clear
-    setUser(null);
+    try {
+      await api.post("/auth/logout", {}, { withCredentials: true });
+      setUser(null);
+    } catch (err) {
+      console.error("Logout failed", err);
+    }
   };
 
   if (loadingUser) {
@@ -49,9 +54,6 @@ function App() {
           {user ? (
             <>
               <span>Hi, {user.username}</span>
-              {/* <Link to="/create" className="hover:underline">
-                Create Post
-              </Link> */}
               <button
                 onClick={handleLogout}
                 className="bg-red-600 px-3 py-1 rounded hover:bg-red-700"

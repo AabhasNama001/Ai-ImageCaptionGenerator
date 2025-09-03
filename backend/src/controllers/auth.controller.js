@@ -81,5 +81,16 @@ async function meController(req, res) {
   res.json({ user: { id: req.user._id, username: req.user.username } });
 }
 
-module.exports = { registerController, loginController, meController };
+// Logout
+async function logoutController(req, res) {
+  res.cookie("token", "", {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "None",
+    maxAge: 0,
+  });
+  res.json({ message: "Logged out successfully" });
+}
+
+module.exports = { registerController, loginController, meController logoutController };
 
