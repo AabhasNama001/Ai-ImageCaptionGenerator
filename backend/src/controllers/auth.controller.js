@@ -92,5 +92,9 @@ async function logoutController(req, res) {
   res.json({ message: "Logged out successfully" });
 }
 
-module.exports = { registerController, loginController, meController logoutController };
-
+module.exports = {
+  registerController,
+  loginController,
+  meController,
+  logoutController,
+};
